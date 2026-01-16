@@ -2,6 +2,7 @@
 
 > **Hysteria2 一键部署脚本（安全版 / 工程级）**  
 > 自动部署 Hysteria2 服务端，并生成可直接使用的 Clash 订阅配置  
+> 一键搭建自己的VPN / Clash订阅链接  
 > 支持 Ubuntu / Debian / CentOS / Rocky / AlmaLinux  
 > **不破坏现有 Nginx 环境**
 
@@ -43,6 +44,32 @@
 | Rocky Linux       | ✅        |
 | AlmaLinux         | ✅        |
 | 其他 systemd 系统 | 理论支持 |
+
+---
+
+## 🌐 使用前准备（非常重要）
+
+在运行脚本之前，你 **必须具备一个自己的域名**，并完成域名解析。
+
+### 1️⃣ 准备域名
+
+- 任意你可控制的域名均可  
+
+### 2️⃣ 配置 DNS 解析
+
+在你的域名 DNS 管理面板中，添加 **A 记录**：
+
+| 类型 | 主机名 | 指向 |
+|----|----|----|
+| A | v.example.com | 你的服务器公网 IP |
+
+> ⚠️ 域名必须 **提前解析到服务器 IP**  
+> 否则 Let’s Encrypt 证书申请会失败。
+
+你可以在服务器上验证解析是否生效：
+```bash
+ping v.example.com
+```
 
 ---
 
@@ -88,3 +115,36 @@ chmod +x install-hy2.sh
 - 订阅地址：`http://<服务器IP>/clash/clash.yaml`
 
 ---
+
+## ❓ 常见问题（FAQ）
+### Q1：客户端提示 `unsupported proxy type: hysteria2`
+
+这是客户端不支持 Hysteria2 协议导致的。
+
+请使用：
+
+- [Clash Verge Rev ](https://github.com/clash-verge-rev/clash-verge-rev)
+
+- [FLClash](https://github.com/chen08209/FlClash)
+
+### Q2：为什么不用 HTTPS 提供订阅？
+
+这是 **有意的安全设计**：
+
+- 不覆盖用户已有 HTTPS 站点
+
+- 不自动注入 Nginx 配置
+
+- 不制造“黑箱行为”
+
+如果你需要 HTTPS 订阅，请 **手动配置 Nginx**。
+
+### Q3：脚本会破坏我已有的 Nginx 吗？
+
+**不会。**
+
+- 不修改 server 块
+
+- 不覆盖配置文件
+
+- 只放置一个静态 YAML 文件
