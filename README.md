@@ -148,3 +148,47 @@ chmod +x install-hy2.sh
 - 不覆盖配置文件
 
 - 只放置一个静态 YAML 文件
+
+---
+
+## 🧹 卸载说明
+
+如果你需要彻底移除本项目部署的 Hysteria2，可使用卸载脚本：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zshTolors/hy2-onekey/main/uninstall-hy2.sh | bash
+```
+
+或：
+
+```bash
+wget https://raw.githubusercontent.com/zshTolors/hy2-onekey/main/install-hy2.sh
+chmod +x install-hy2.sh
+./install-hy2.sh
+```
+
+### 卸载脚本说明
+
+- 卸载脚本 **只会删除本项目创建的内容**：
+
+- Hysteria2 程序
+
+- systemd 服务
+
+- `/etc/hysteria` 配置目录
+
+- ``/root/hy2`` Clash 配置
+
+- 本项目生成的订阅文件
+
+不会删除：
+
+- Nginx
+
+- Let's Encrypt 证书
+
+- Certbot
+
+- 用户已有站点或配置
+
+- 如需删除防火墙规则，请自行处理。
